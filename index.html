@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommender System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        form {
+            display: flex;
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .recommendations {
+            margin-top: 20px;
+        }
+        .book-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            background-color: #e9ecef;
+        }
+        .book-title {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .book-author {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .error {
+            color: #dc3545;
+            text-align: center;
+            padding: 15px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Content-Based Book Recommender</h1>
+
+        <form method="POST">
+            <input type="text" 
+                   name="book_title" 
+                   placeholder="Enter a book title (e.g., 'The Da Vinci Code')" 
+                   value="{{ input_title if input_title else '' }}" 
+                   required>
+            <button type="submit">Recommend</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if recommendations %}
+            <h2>Recommendations for '{{ input_title }}'</h2>
+            <div class="recommendations">
+                {% for book in recommendations %}
+                <div class="book-card">
+                    <div class="book-title">{{ loop.index }}. {{ book['Book-Title'] }}</div>
+                    <div class="book-author">by {{ book['Book-Author'] }} ({{ book['Year-Of-Publication'] }})</div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
